@@ -22,13 +22,16 @@ pub mod solana_blog_dapp {
     }
 
     pub fn make_post(ctx: Context<MakePost>, new_post: Vec<u8>) -> Result<()> {
+        // Decode new_post
         let post = from_utf8(&new_post).map_err(|err| {
             msg!("Invalid UTF-8, from byte {}", err.valid_up_to());
             ProgramError::InvalidInstructionData
         }).unwrap();
+        // Print post to the log
         msg!(post);
-
+        // Get blog_account from the context
         let blog_account = &mut ctx.accounts.blog_account;
+        // Assign latest_post property
         blog_account.latest_post = new_post;
 
         Ok(())
@@ -37,7 +40,7 @@ pub mod solana_blog_dapp {
 
 #[derive(Accounts)]
 pub struct Initialize<'info> {
-    #[account(init, payer = signer, space = 8)]
+    #[account(init, payer = signer, space = 8 + 32 + 1024)]
     pub blog_account: Account<'info, BlogAccount>,
     #[account(mut)]
     pub signer: Signer<'info>,

@@ -1,7 +1,7 @@
 [features]
 seeds = false
 [programs.localnet]
-solana_blog_dapp = "Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS"
+solana_blog_dapp = "8vn9kdHuybwnWiwQDc16XKjUvsvKxwmjA53uKAtXTbpk"
 
 [registry]
 url = "https://anchor.projectserum.com"

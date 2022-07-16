@@ -12,7 +12,7 @@ pub mod solana_blog_dapp {
 
     use super::*;
 
-    pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
+    pub fn create_blog(ctx: Context<CreateBlog>) -> Result<()> {
         // Get blog_account from the context
         let blog_account = &mut ctx.accounts.blog_account;
         // Assign the author property
@@ -39,7 +39,7 @@ pub mod solana_blog_dapp {
 }
 
 #[derive(Accounts)]
-pub struct Initialize<'info> {
+pub struct CreateBlog<'info> {
     #[account(init, payer = signer, space = 8 + 32 + 1024)]
     pub blog_account: Account<'info, BlogAccount>,
     #[account(mut)]

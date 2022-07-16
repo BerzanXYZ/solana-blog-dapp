@@ -51,5 +51,6 @@ pub struct CreateBlog<'info> {
 pub struct MakePost<'info> {
     #[account(mut, has_one = author)]
     pub blog_account: Account<'info, BlogAccount>,
+    #[account(mut)]
     pub author: Signer<'info>,
 }

@@ -8,9 +8,9 @@ describe("solana-blog-dapp", () => {
 
   const program = anchor.workspace.SolanaBlogDapp as Program<SolanaBlogDapp>;
 
-  it("Is initialized!", async () => {
+  it("Can create a Blog Account!", async () => {
     // Add your test here.
-    const tx = await program.methods.initialize().rpc();
+    const tx = await program.methods.createBlog().rpc();
     console.log("Your transaction signature", tx);
   });
 });

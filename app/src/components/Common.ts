@@ -5,7 +5,7 @@ export const Page = styled.div`
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
-    color: white;
+    color: black;
     background: rgba(20,241,149,1);
 `
 

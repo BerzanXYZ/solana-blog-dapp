@@ -5,7 +5,7 @@ import {IDL, type SolanaBlogDapp} from "./solana-blog-dapp"
 
 
 export function getProgram(connection: Connection) {
-    const provider = new AnchorProvider(connection, new Wallet(getBlogAccount()), 'confirmed' as ConfirmOptions)
+    const provider = new AnchorProvider(connection, {} as Wallet, 'confirmed' as ConfirmOptions)
     const programId = new PublicKey('8vn9kdHuybwnWiwQDc16XKjUvsvKxwmjA53uKAtXTbpk')
     return new Program(IDL, programId, provider)
 }

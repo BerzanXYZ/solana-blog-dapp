@@ -12,11 +12,16 @@ pub mod solana_blog_dapp {
 
     use super::*;
 
-    pub fn create_blog(ctx: Context<CreateBlog>) -> Result<()> {
+    pub fn create_blog(ctx: Context<CreateBlog>, blog_name: String) -> Result<()> {
         // Get blog_account from the context
         let blog_account = &mut ctx.accounts.blog_account;
+
         // Assign the author property
-        blog_account.author = *ctx.accounts.signer.key;
+        blog_account.author = *ctx.accounts.author.key;
+
+        // Assign the blog_name property
+        blog_account.blog_name = blog_name;
+
 
         Ok(())
     }
@@ -27,12 +32,16 @@ pub mod solana_blog_dapp {
             msg!("Invalid UTF-8, from byte {}", err.valid_up_to());
             ProgramError::InvalidInstructionData
         }).unwrap();
+
         // Print post to the log
         msg!(post);
+
         // Get blog_account from the context
         let blog_account = &mut ctx.accounts.blog_account;
+
         // Assign latest_post property
         blog_account.latest_post = new_post;
+
 
         Ok(())
     }
@@ -40,10 +49,10 @@ pub mod solana_blog_dapp {
 
 #[derive(Accounts)]
 pub struct CreateBlog<'info> {
-    #[account(init, payer = signer, space = 8 + 32 + 1024)]
+    #[account(init, payer = author, space = 8 + 32 + 36 + 1024)]
     pub blog_account: Account<'info, BlogAccount>,
     #[account(mut)]
-    pub signer: Signer<'info>,
+    pub author: Signer<'info>,
     pub system_program: Program<'info, System>,
 }
 

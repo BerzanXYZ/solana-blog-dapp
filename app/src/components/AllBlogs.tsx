@@ -46,7 +46,9 @@ const BlogName = styled.h2`
 
 const BlogAuthorDiv = styled.div`
     display: flex;
+    flex-wrap: wrap;
     align-items: flex-end;
+    row-gap: 1rem;
     justify-content: space-between;
 `
 
@@ -61,7 +63,7 @@ const BlogAuthorName = styled.h3`
 
 const BlogAuthor = styled.p`
     font-weight: 600;
-    font-size: 0.75rem;
+    font-size: 0.625rem;
     color: hsl(267, 100%, 75%);
     padding: 6px;
     border-radius: 6px;
@@ -77,16 +79,46 @@ const BlogLatestPost = styled.p`
     background-color: #333333;
 `
 
-const Blog = ({ blog }: {blog: BlogAccount}) => (
-    <BlogDiv>
-        <BlogName>{blog.blogName}</BlogName>
-        <BlogLatestPost>{blog.latestPost.toString() || 'No content yet!'}</BlogLatestPost>
-        <BlogAuthorDiv>
-            <BlogAuthor>{blog.author.toBase58()}</BlogAuthor>
-            <BlogAuthorName>{blog.authorName}</BlogAuthorName>
-        </BlogAuthorDiv>
-    </BlogDiv>
-)
+const BlogDonateDiv = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 0.75rem;
+    column-gap: 1rem;
+`
+
+const Button = styled.button`
+    border: none;
+    font-weight: 600;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 8px;
+    color: white;
+    background-color: #505050;
+    cursor: pointer;
+    transition-duration: 200ms;
+    &:hover {
+        color: black;
+        background-color: rgba(20,241,149,1);
+    }
+`
+
+const Blog = ({ blog }: {blog: BlogAccount}) => {
+    const { donate } = useProgram()
+
+    return (
+        <BlogDiv>
+            <BlogName>{blog.blogName}</BlogName>
+            <BlogLatestPost>{blog.latestPost.toString() || 'No content yet!'}</BlogLatestPost>
+            <BlogAuthorDiv>
+                <BlogDonateDiv>
+                    <BlogAuthor>{blog.author.toBase58()}</BlogAuthor>
+                    <Button onClick={() => donate(blog.author)}>Donate</Button>
+                </BlogDonateDiv>
+                <BlogAuthorName>{blog.authorName}</BlogAuthorName>
+            </BlogAuthorDiv>
+        </BlogDiv>
+    )
+}
 
 export const AllBlogs = () => {
     const { blogs } = useProgram()

@@ -1,11 +1,12 @@
 import { AnchorProvider, Program, Wallet } from "@project-serum/anchor";
+import { WalletContextState } from "@solana/wallet-adapter-react";
 import { PublicKey, SystemProgram, Connection, ConfirmOptions, Keypair } from "@solana/web3.js";
 import { getBlogAccount } from "./blogAccount";
 import {IDL, type SolanaBlogDapp} from "./solana-blog-dapp"
 
 
-export function getProgram(connection: Connection) {
-    const provider = new AnchorProvider(connection, {} as Wallet, 'confirmed' as ConfirmOptions)
+export function getProgram(wallet: WalletContextState, connection: Connection) {
+    const provider = new AnchorProvider(connection, wallet as unknown as Wallet, 'confirmed' as ConfirmOptions)
     const programId = new PublicKey('8vn9kdHuybwnWiwQDc16XKjUvsvKxwmjA53uKAtXTbpk')
     return new Program(IDL, programId, provider)
 }

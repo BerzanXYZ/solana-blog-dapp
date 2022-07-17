@@ -2,17 +2,20 @@ import { Keypair } from "@solana/web3.js";
 
 export function createNewBlogAccount() {
     const ba = Keypair.generate()
-    localStorage.setItem('blogAccount', ba.secretKey.toString())
+    const secretKeyHex = Array.from(ba.secretKey)
+        .map(i => i.toString(16).padStart(2, "0"))
+        .join("")
+    localStorage.setItem('blogAccount', secretKeyHex)
     return ba
 }
 
 export function getBlogAccount() {
-    const localSecretKey = localStorage.getItem('blogAccount')
+    const localSecretKeyHex = localStorage.getItem('blogAccount')
 
-    if(!localSecretKey) return createNewBlogAccount()
+    if(!localSecretKeyHex) return createNewBlogAccount()
 
-    const secretKey = new Uint8Array(
-        localSecretKey.split("").map(c => c.charCodeAt(0))
+    const secretKey = Uint8Array.from(
+        Buffer.from(localSecretKeyHex, 'hex')
     )
 
     return Keypair.fromSecretKey(secretKey)

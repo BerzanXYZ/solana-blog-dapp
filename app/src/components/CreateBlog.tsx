@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import styled from "styled-components";
 import { useProgram } from "../context/ProgramProvider";
 
@@ -53,7 +53,7 @@ const Button = styled.button`
     }
 `
 
-export const CreateBlog = () => {
+export const CreateBlog = ({ onSubmit }: { onSubmit: Dispatch<SetStateAction<boolean>> }) => {
     const [blogName, setBlogName] = useState('')
     const [authorName, setAuthorName] = useState('')
     const program = useProgram()
@@ -63,15 +63,15 @@ export const CreateBlog = () => {
             alert('Inputs cannot be empty!')
             return
         }
-        program.createBlog(authorName, blogName)
+        await program.createBlog(authorName, blogName).then(() => onSubmit(true))
     }
 
     return (
         <Div>
             <H2>Blog Name</H2>
-            <Input onChange={e=>setBlogName(e.currentTarget.value)}/>
+            <Input onChange={e=>setBlogName(e.target.value)}/>
             <H2>Author</H2>
-            <Input onChange={e=>setAuthorName(e.currentTarget.value)}/>
+            <Input onChange={e=>setAuthorName(e.target.value)}/>
             <Button onClick={createBlog}>Create Blog</Button>
         </Div>
     )

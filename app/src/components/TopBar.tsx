@@ -9,6 +9,7 @@ const StyledTopBar = styled.header`
     align-items: center;
     justify-content: space-between;
     height: 4rem;
+    width: 100%;
     padding: 0rem 1.5rem;
     color: white;
     background: #222222;

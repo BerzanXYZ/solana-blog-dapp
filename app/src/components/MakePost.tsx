@@ -1,3 +1,4 @@
+import { useWallet } from "@solana/wallet-adapter-react";
 import { useState } from "react";
 import styled from "styled-components";
 import { useProgram } from "../context/ProgramProvider";
@@ -60,9 +61,10 @@ const Button = styled.button`
 export const MakePost = () => {
     const [post, setPost] = useState('')
     const program = useProgram()
+    const { publicKey } = useWallet()
 
     async function makePost() {
-        if(!post) {
+        if(!(post && publicKey)) {
             alert('Post cannot be empty')
             return
         }

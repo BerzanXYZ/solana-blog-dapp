@@ -1,3 +1,4 @@
+import { useWallet } from "@solana/wallet-adapter-react";
 import { Dispatch, SetStateAction, useState } from "react";
 import styled from "styled-components";
 import { useProgram } from "../context/ProgramProvider";
@@ -57,9 +58,10 @@ export const CreateBlog = ({ onSubmit }: { onSubmit: Dispatch<SetStateAction<boo
     const [blogName, setBlogName] = useState('')
     const [authorName, setAuthorName] = useState('')
     const program = useProgram()
+    const { publicKey } = useWallet()
 
     async function createBlog() {
-        if(!(blogName && authorName)) {
+        if(!(blogName && authorName && publicKey)) {
             alert('Inputs cannot be empty!')
             return
         }

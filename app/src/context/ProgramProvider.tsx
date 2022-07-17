@@ -1,8 +1,9 @@
-import { Wallet } from "@project-serum/anchor";
+import { Program, Wallet } from "@project-serum/anchor";
 import { useAnchorWallet, useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { Keypair } from "@solana/web3.js";
-import { createContext, ReactNode, useContext, useMemo, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { getProgram, createBlogOnProgram, makePostOnProgram } from "../utils/program";
+import { SolanaBlogDapp } from "../utils/solana-blog-dapp";
 
 interface ProgramContextState {
     createBlog(author: string, blog: string): Promise<void>,
@@ -18,16 +19,20 @@ export function useProgram() {
 export const ProgramProvider = ({ children }: { children: ReactNode }) => {
     const { publicKey } = useWallet()
     const { connection } = useConnection()
-    const program = useMemo(() => getProgram(connection), [connection])
+    const program = useRef({} as Program<SolanaBlogDapp>)
+    
+    useEffect(() => {
+        program.current = getProgram(connection)
+    }, [connection])
 
     async function createBlog(authorName: string, blogName: string) {
         if(!publicKey) return
-        await createBlogOnProgram(program, authorName, blogName, publicKey)
+        await createBlogOnProgram(program.current, authorName, blogName, publicKey)
     }
 
     async function makePost(post: string) {
         if(!publicKey) return
-        await makePostOnProgram(program, post, publicKey)
+        await makePostOnProgram(program.current, post, publicKey)
     }
 
     return (

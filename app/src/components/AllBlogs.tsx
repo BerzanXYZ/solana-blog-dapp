@@ -7,13 +7,20 @@ const JumpToIndex = styled.button`
     position: fixed;
     bottom: 10px;
     right: 10px;
-    height: 30px;
-    padding: 0px 15px;
+    height: 50px;
+    padding: 0px 18px;
     border-radius: 10px;
     border: none;
-    background-color: white;
+    background-color: #444444;
+    color: white;
     box-shadow: 0 0 1rem #00000060;
-
+    font-size: 1rem;
+    font-weight: 600;
+    transition-duration: 200ms;
+    cursor: pointer;
+    &:hover {
+        background-color: #505050;
+    }
 `
 
 const BlogList = styled.div`
@@ -28,7 +35,7 @@ const BlogDiv = styled.div`
     flex-direction: column;
     border-radius: 10px;
     padding: 14px;
-    background-color: #222222;
+    background-color: #282828;
     row-gap: 1rem;
 `
 
@@ -62,7 +69,7 @@ const BlogAuthor = styled.p`
 `
 
 const BlogLatestPost = styled.p`
-    font-weight: 700;
+    font-weight: 600;
     font-size: 1rem;
     filter: opacity(0.7);
     padding: 14px;

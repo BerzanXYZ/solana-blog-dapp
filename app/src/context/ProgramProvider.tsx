@@ -18,12 +18,14 @@ export function useProgram() {
 
 export const ProgramProvider = ({ children }: { children: ReactNode }) => {
     const wallet = useWallet()
+    const anchorWallet = useAnchorWallet()
     const { connection } = useConnection()
     const program = useRef({} as Program<SolanaBlogDapp>)
 
     useEffect(() => {
-        program.current = getProgram(wallet ,connection)
-    }, [connection])
+        if(!anchorWallet) return
+        program.current = getProgram(anchorWallet as unknown as Wallet ,connection)
+    }, [connection, anchorWallet])
 
     async function createBlog(authorName: string, blogName: string) {
         if(!wallet.publicKey) return

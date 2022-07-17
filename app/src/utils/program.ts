@@ -41,3 +41,14 @@ export async function makePostOnProgram(program: Program<SolanaBlogDapp>, new_po
     
     console.log(tx)
 }
+
+export async function getAccountsOnProgram(program: Program<SolanaBlogDapp>): Promise<BlogAccount[]> {
+    return (await program.account.blogAccount.all()).map(a => a.account)  as BlogAccount[]
+}
+
+export interface BlogAccount {
+    author: PublicKey,
+    authorName: string,
+    blogName: string,
+    latestPost: Buffer,
+}

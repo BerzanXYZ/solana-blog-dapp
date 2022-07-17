@@ -38,6 +38,8 @@ const H2 = styled.h2`
 const Button = styled.button`
     margin-top: 3rem;
     color: white;
+    font-size: 1.125rem;
+    font-weight: 600;
     background-color: hsl(267, 100%, 35%);
     box-shadow: 0 0 1rem #00000060;
     border: none;

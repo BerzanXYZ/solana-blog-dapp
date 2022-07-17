@@ -13,6 +13,6 @@ export const Main = styled.main`
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 1024px;
+    max-width: 768px;
     padding: 1rem;
 `

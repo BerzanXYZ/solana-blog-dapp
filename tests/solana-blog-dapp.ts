@@ -14,7 +14,7 @@ describe("solana-blog-dapp", () => {
 
   it("Can create a Blog Account!", async () => {
     // Create a new Blog Account
-    await program.methods.createBlog('How nice Solana is').accounts({
+    await program.methods.createBlog('Berzan', 'How nice Solana is').accounts({
       blogAccount: kp.publicKey,
       author: provider.wallet.publicKey,
       systemProgram: anchor.web3.SystemProgram.programId,
@@ -32,6 +32,12 @@ describe("solana-blog-dapp", () => {
 
     // Fetch blog account
     const account = await program.account.blogAccount.fetch(kp.publicKey)
-    console.log('Name:', account.blogName, '\nPost:', (account.latestPost as Buffer).toString(), '\nAuthor:', account.author.toBase58(),);
+    // Print data
+    console.log(`
+    Blog Name: ${account.blogName}
+    Latest Post: ${(account.latestPost as Buffer).toString()}
+    Author: ${account.authorName}
+    Author Address: ${account.author.toBase58()}
+    `)
   })
 });

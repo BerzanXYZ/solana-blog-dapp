@@ -1,6 +1,5 @@
 import { Program, Wallet, AnchorProvider } from "@project-serum/anchor";
-import { WalletContextState } from "@solana/wallet-adapter-react";
-import { PublicKey, SystemProgram, Connection, ConfirmOptions, Keypair } from "@solana/web3.js";
+import { PublicKey, SystemProgram, Connection, ConfirmOptions } from "@solana/web3.js";
 import { getBlogAccount } from "./blogAccount";
 import {IDL, type SolanaBlogDapp} from "./solana-blog-dapp"
 

@@ -9,8 +9,7 @@ const StyledTopBar = styled.header`
     justify-content: space-between;
     height: 4rem;
     padding: 0rem 1.5rem;
-    background: #00000040;
-    backdrop-filter: blur(64px);
+    background: #222222;
 `
 
 const Title = styled.a`

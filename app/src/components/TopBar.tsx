@@ -1,3 +1,4 @@
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import styled from "styled-components";
 
 const StyledTopBar = styled.header`
@@ -9,6 +10,7 @@ const StyledTopBar = styled.header`
     justify-content: space-between;
     height: 4rem;
     padding: 0rem 1.5rem;
+    color: white;
     background: #222222;
 `
 
@@ -20,5 +22,6 @@ const Title = styled.a`
 export const TopBar = () => (
     <StyledTopBar>
         <Title>Solana Blog</Title>
+        <WalletMultiButton/>
     </StyledTopBar>
 )

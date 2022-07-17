@@ -8,6 +8,7 @@ const Div = styled.div`
     flex-direction: column;
     box-shadow: 0 0 1rem #00000060;
     border-radius: 10px;
+    row-gap: 1rem;
     padding: 1.5rem;
     color: white;
     border: 1px solid #444444;
@@ -37,7 +38,7 @@ const H2 = styled.h2`
 `
 
 const Button = styled.button`
-    margin-top: 3rem;
+    margin-top: 1.5rem;
     color: white;
     font-size: 1.125rem;
     font-weight: 600;

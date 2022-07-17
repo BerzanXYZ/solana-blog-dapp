@@ -1,11 +1,19 @@
 import { useWallet } from "@solana/wallet-adapter-react";
+import Link from "next/link";
 import { useState } from "react";
 import styled from "styled-components";
 import { useProgram } from "../context/ProgramProvider";
 
+const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+`
+
 const Div = styled.div`
     display: flex;
     flex-direction: column;
+    row-gap: 1rem;
     box-shadow: 0 0 1rem #00000060;
     border-radius: 10px;
     padding: 1.5rem;
@@ -23,7 +31,7 @@ const TextArea = styled.textarea`
     border: 1px solid #444444;
     border-radius: 10px;
     height: 300px;
-    padding: 7px 10px;
+    padding: 10px;
     transition-duration: 200ms;
     &:hover {
         background-color: #3b3b3b;
@@ -41,7 +49,8 @@ const H2 = styled.h2`
 `
 
 const Button = styled.button`
-    margin-top: 3rem;
+    margin-top: 1.5rem;
+    width: 100%;
     color: white;
     font-size: 1.125rem;
     font-weight: 600;
@@ -75,10 +84,16 @@ export const MakePost = () => {
     }
 
     return(
-        <Div>
-            <H2>Post</H2>
-            <TextArea value={post} onChange={e=>setPost(e.target.value)}/>
-            <Button onClick={makePost}>Make Post</Button>
-        </Div>
+        <Wrapper>
+            <Div style={{rowGap: '0rem'}}>
+                <H2>See others Blogs</H2>
+                <Link href="/blogs"><Button>Go to see the Blogs</Button></Link>
+            </Div>
+            <Div>
+                <H2>Post on your Blog</H2>
+                <TextArea value={post} onChange={e=>setPost(e.target.value)}/>
+                <Button onClick={makePost}>Make Post</Button>
+            </Div>
+        </Wrapper>
     )
 }

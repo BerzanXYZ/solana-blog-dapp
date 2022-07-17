@@ -37,8 +37,7 @@ export async function makePostOnProgram(program: Program<SolanaBlogDapp>, new_po
     .accounts({
         blogAccount: blogAccount.publicKey,
         author: author
-    }).signers([blogAccount])
-    .rpc()
+    }).rpc()
     
     console.log(tx)
 }

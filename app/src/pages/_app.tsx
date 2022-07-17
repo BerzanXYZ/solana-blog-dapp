@@ -4,14 +4,17 @@ import type { AppProps } from 'next/app'
 import { Page } from '../components/Common'
 import { TopBar } from '../components/TopBar'
 import Wallet from '../context/Wallet'
+import { ProgramProvider } from '../context/ProgramProvider'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Wallet>
-      <Page>
-        <TopBar/>
-        <Component {...pageProps} />
-      </Page>
+      <ProgramProvider>
+        <Page>
+          <TopBar/>
+          <Component {...pageProps} />
+        </Page>
+      </ProgramProvider>
     </Wallet>
   )
 }

@@ -1,13 +1,13 @@
 [features]
 seeds = false
-[programs.localnet]
+[programs.devnet]
 solana_blog_dapp = "8vn9kdHuybwnWiwQDc16XKjUvsvKxwmjA53uKAtXTbpk"
 
 [registry]
 url = "https://anchor.projectserum.com"
 
 [provider]
-cluster = "localnet"
+cluster = "devnet"
 wallet = "/home/berzan/.config/solana/id.json"
 
 [scripts]

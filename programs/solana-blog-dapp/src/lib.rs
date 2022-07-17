@@ -12,12 +12,15 @@ pub mod solana_blog_dapp {
 
     use super::*;
 
-    pub fn create_blog(ctx: Context<CreateBlog>, blog_name: String) -> Result<()> {
+    pub fn create_blog(ctx: Context<CreateBlog>, author_name: String ,blog_name: String) -> Result<()> {
         // Get blog_account from the context
         let blog_account = &mut ctx.accounts.blog_account;
 
         // Assign the author property
         blog_account.author = *ctx.accounts.author.key;
+
+        // Assign the author_name property
+        blog_account.author_name = author_name;
 
         // Assign the blog_name property
         blog_account.blog_name = blog_name;
@@ -49,7 +52,7 @@ pub mod solana_blog_dapp {
 
 #[derive(Accounts)]
 pub struct CreateBlog<'info> {
-    #[account(init, payer = author, space = 8 + 32 + 36 + 1024)]
+    #[account(init, payer = author, space = 8 + 32 + 36 + 36 + 1024)]
     pub blog_account: Account<'info, BlogAccount>,
     #[account(mut)]
     pub author: Signer<'info>,

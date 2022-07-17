@@ -1,14 +1,15 @@
 import { Program, Wallet } from "@project-serum/anchor";
 import { useAnchorWallet, useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { Keypair } from "@solana/web3.js";
-import { createContext, ReactNode, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
+import { createContext, ReactNode, useContext, useEffect, useRef, useState } from "react";
 import { getProgram, createBlogOnProgram, makePostOnProgram, getAccountsOnProgram, BlogAccount } from "../utils/program";
 import { SolanaBlogDapp } from "../utils/solana-blog-dapp";
 
 interface ProgramContextState {
     createBlog(author: string, blog: string): Promise<void>,
     makePost(post: string): Promise<void>,
-    blogs: BlogAccount[]
+    donate(pk: PublicKey): Promise<void>,
+    blogs: BlogAccount[],
 }
 
 const ProgramContext = createContext({} as ProgramContextState)
@@ -44,13 +45,32 @@ export const ProgramProvider = ({ children }: { children: ReactNode }) => {
         setBlogs(await getAccountsOnProgram(program.current))
     }
 
+    async function donate(pk: PublicKey) {
+        if(!wallet.publicKey) return
+        const tx = new Transaction().add(
+            SystemProgram.transfer({
+                fromPubkey: wallet.publicKey,
+                toPubkey: pk,
+                lamports: 1e7,
+            }
+        ))
+        const sig = await wallet.sendTransaction(tx, connection)
+        const blockHash = await connection.getLatestBlockhash()
+        await connection.confirmTransaction({
+            blockhash: blockHash.blockhash,
+            lastValidBlockHeight: blockHash.lastValidBlockHeight,
+            signature: sig,
+        })
+
+    }
+
     useEffect(() => {
         if(!wallet.publicKey) return
         getBlogs()
     }, [wallet.publicKey])
 
     return (
-        <ProgramContext.Provider value={{createBlog, makePost, blogs}}>
+        <ProgramContext.Provider value={{createBlog, makePost, donate, blogs}}>
             {children}
         </ProgramContext.Provider>
     )
